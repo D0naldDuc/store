@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Online Store</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 15px;
+            text-align: center;
+            width: 300px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            background-color: #333;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .checkout {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #cart {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #cart ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #cart li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dres serveces</h1>
+    </header>
+    <section>
+        <div class="product">
+            <h2><a href="product1.html">Product 1</a></h2>
+            <p>Description of Product 1.</p>
+            <p>$19.99</p>
+            <form id="product1-form">
+                <label for="quantity1">Quantity:</label>
+                <input type="number" id="quantity1" name="quantity" min="1" value="1">
+                <button type="button" onclick="addToCart('Product 1', 19.99, 'quantity1')">Add to Cart</button>
+            </form>
+        </div>
+        <div class="product">
+            <h2><a href="product2.html">Product 2</a></h2>
+            <p>Description of Product 2.</p>
+            <p>$29.99</p>
+            <form id="product2-form">
+                <label for="quantity2">Quantity:</label>
+                <input type="number" id="quantity2" name="quantity" min="1" value="1">
+                <button type="button" onclick="addToCart('Product 2', 29.99, 'quantity2')">Add to Cart</button>
+            </form>
+        </div>
+        <div class="product">
+            <h2><a href="product3.html">Product 3</a></h2>
+            <p>Description of Product 3.</p>
+            <p>$39.99</p>
+            <form id="product3-form">
+                <label for="quantity3">Quantity:</label>
+                <input type="number" id="quantity3" name="quantity" min="1" value="1">
+                <button type="button" onclick="addToCart('Product 3', 39.99, 'quantity3')">Add to Cart</button>
+            </form>
+        </div>
+    </section>
+    <div class="checkout">
+        <div id="cart">
+            <h2>Shopping Cart</h2>
+            <ul id="cart-items"></ul>
+            <p>Total: $<span id="total">0.00</span></p>
+            <button onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+  
+    <script>
+        let cartItems = [];
+        let total = 0;
+
+        function addToCart(productName, price, quantityFieldId) {
+            const quantity = parseInt(document.getElementById(quantityFieldId).value);
+            const itemTotal = price * quantity;
+
+            cartItems.push({ name: productName, price: itemTotal, quantity: quantity });
+            total += itemTotal;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById('cart-items');
+            const totalElement = document.getElementById('total');
+            cartList.innerHTML = '';
+            cartItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.name} - Quantity: ${item.quantity} - $${item.price.toFixed(2)}`;
+                cartList.appendChild(listItem);
+            });
+            totalElement.textContent = total.toFixed(2);
+        }
+
+        function checkout() {
+            alert('Thank you for your purchase!');
+            cartItems = [];
+            total = 0;
+            updateCart();
+        }
+    </script>
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Simple Online Store</title>
+    <style>
+        /* Your existing styles here */
+    </style>
+</head>
+<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Simple Online Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   
+    <section class="checkout-info-container">
+        <h2>Enter Your Information</h2>
+        <form id="checkout-info-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <label for="creditCard">Credit Card:</label>
+            <input type="text" id="creditCard" name="creditCard" placeholder="Fake Info">
+            
+            <br>
+            <button type="button" onclick="processOrder()">Complete Order</button>
+        </form>
+    </section>
+    
+
+    <script src="script.js"></script>
+</body>
+   
+</body>
+</html>
